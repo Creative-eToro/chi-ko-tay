@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chi+Ko &Tay — The Impossible Roster</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07060A;
+  --surface: #0F0E13;
+  --gold: #C8A951;
+  --gold-dim: rgba(200,169,81,0.12);
+  --gold-glow: rgba(200,169,81,0.06);
+  --cream: #EDE8DA;
+  --silver: #9B978E;
+  --red: #A63D2F;
+  --blue: #2A4A5E;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  background: var(--bg);
+  color: var(--cream);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* --- HERO --- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 32px;
+  position: relative;
+  background:
+    radial-gradient(circle 600px at 50% 45%, rgba(200,169,81,0.04), transparent),
+    var(--bg);
+}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: rise 1s ease 0.2s forwards;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 700;
+  line-height: 1.15;
+  max-width: 900px;
+  opacity: 0;
+  animation: rise 1.2s ease 0.4s forwards;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--silver);
+  max-width: 560px;
+  margin-top: 32px;
+  opacity: 0;
+  animation: rise 1s ease 0.7s forwards;
+}
+
+.hero-count {
+  margin-top: 64px;
+  display: flex;
+  gap: 60px;
+  opacity: 0;
+  animation: rise 1s ease 1s forwards;
+}
+
+.hero-count div { text-align: center; }
+
+.hero-count .num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.hero-count .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+/* --- PERSON CARD --- */
+.person-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 32px;
+  border-top: 1px solid var(--gold-dim);
+}
+
+.person-role-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  display: inline-block;
+  padding: 5px 14px;
+}
+
+.person-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-top: 20px;
+}
+
+.person-origin {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--gold);
+  margin-top: 8px;
+}
+
+.person-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 12px;
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid;
+}
+
+.status-alive { color: #5A9E6F; border-color: #5A9E6F; }
+.status-retired { color: var(--gold); border-color: var(--gold); }
+.status-deceased { color: var(--silver); border-color: rgba(155,151,142,0.3); }
+
+.person-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .person-body { grid-template-columns: 1fr; gap: 32px; }
+}
+
+.person-why h3, .person-fit h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.person-why p, .person-fit p {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--silver);
+  line-height: 1.85;
+}
+
+.person-credentials {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.credential {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--gold-glow);
+  border: 1px solid var(--gold-dim);
+  color: var(--cream);
+  padding: 6px 12px;
+}
+
+/* --- CHEMISTRY SECTION --- */
+.chemistry {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 32px;
+  border-top: 1px solid var(--gold-dim);
+}
+
+.chemistry h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.chemistry h2 em { color: var(--gold); font-style: italic; }
+
+.chemistry-intro {
+  font-size: 16px;
+  color: var(--silver);
+  max-width: 650px;
+  margin-bottom: 48px;
+}
+
+.chem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.chem-card {
+  border: 1px solid var(--gold-dim);
+  padding: 36px 28px;
+  position: relative;
+}
+
+.chem-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40px; height: 2px;
+  background: var(--gold);
+}
+
+.chem-card h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.chem-card p {
+  font-size: 13px;
+  color: var(--silver);
+  line-height: 1.8;
+}
+
+/* --- FOOTER --- */
+.footer {
+  text-align: center;
+  padding: 120px 32px 48px;
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.footer-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--silver);
+  margin-top: 8px;
+}
+
+.footer-note {
+  font-size: 10px;
+  color: rgba(155,151,142,0.4);
+  margin-top: 40px;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-eyebrow">The Impossible Roster</div>
+  <h1>Fifteen names.<br>One office.<br><em>World domination.</em></h1>
+  <p class="hero-sub">The greatest advertising minds in history — dead, alive, or retired — assembled into a single team. Each chosen for a specific role. Each completing the others. Language is irrelevant. Genius is universal.</p>
+  <div class="hero-count">
+    <div><div class="num">15</div><div class="label">People</div></div>
+    <div><div class="num">9</div><div class="label">Countries</div></div>
+    <div><div class="num">1</div><div class="label">Office</div></div>
+  </div>
+</section>
+
+<!-- ==================== 01 · CEO ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">01 · Founder & CEO</div>
+  <div class="person-name">David Droga</div>
+  <div class="person-origin">Australian · Born in Thredbo, NSW</div>
+  <span class="person-status status-alive">Active — CEO, Accenture Song</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Him</h3>
+      <p>The single most awarded creative at Cannes Lions in history — over 70 Lions including six Grand Prix and four Titanium. But what makes Droga the CEO, not the CCO, is that he's already done both. He founded Droga5 from nothing and built it into an agency named Agency of the Year 11 times. Then he took a $10.6 billion division of Accenture and rebranded it as Accenture Song. He understands business at global scale AND creative at the highest level. He was worldwide CCO of Publicis at 34. He's the rare founder who can sit in a boardroom with Fortune 500 CEOs and in a creative review with the same authority. There is no one alive better suited to lead Chi+Ko &Tay.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How He Completes the Team</h3>
+      <p>Droga is the bridge. He translates between the creative idealists and the business realists on the team. He sets the vision, protects the culture, recruits the talent, and makes the final call on which clients Chi+Ko &Tay pursues. His personal credibility opens doors that no pitch deck ever could. He hires people smarter than him — and then gets out of their way.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">70+ Cannes Lions</span>
+    <span class="credential">6 Grand Prix</span>
+    <span class="credential">4 Titanium Lions</span>
+    <span class="credential">Cannes Lifetime Achievement at 47</span>
+    <span class="credential">ADC Hall of Fame (youngest ever)</span>
+    <span class="credential">Founded Droga5</span>
+  </div>
+</section>
+
+<!-- ==================== 02 · CCO ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">02 · Global Chief Creative Officer</div>
+  <div class="person-name">Lee Clow</div>
+  <div class="person-origin">American · Los Angeles, California</div>
+  <span class="person-status status-retired">Retired — Former Chairman, TBWA\Media Arts Lab</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Him</h3>
+      <p>Lee Clow co-created Apple's "1984" — widely considered the greatest advertisement ever made — and then created the "Think Different" campaign that helped save Apple from bankruptcy and redefined what advertising could be for a technology brand. He spent over 30 years building brands with Steve Jobs. He turned Chiat\Day (and later TBWA) into a creative powerhouse. He understands that advertising isn't about selling products — it's about building cultural movements. His "Media Arts" philosophy — that ideas should be designed for any medium — was prophetic by two decades.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How He Completes the Team</h3>
+      <p>Clow is the creative conscience. While Droga runs the business, Clow holds the creative standard. He doesn't chase trends — he creates them. He brings a California surf-culture calm that balances the intensity of the rest of the team. He's worked with the most demanding client in history (Steve Jobs) and made it work for 30 years. That temperament is invaluable. He completes Serpa's visual precision with conceptual grandeur.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">Apple "1984" & "Think Different"</span>
+    <span class="credential">Cannes Lion of St. Mark</span>
+    <span class="credential">TBWA\Media Arts Lab Founder</span>
+    <span class="credential">ADC Hall of Fame</span>
+    <span class="credential">Clio Lifetime Achievement</span>
+    <span class="credential">30+ Years With Apple</span>
+  </div>
+</section>
+
+<!-- ==================== 03 · CSO ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">03 · Global Chief Strategy Officer</div>
+  <div class="person-name">Jon Steel</div>
+  <div class="person-origin">British · Started at Boase Massimi Pollitt, London</div>
+  <span class="person-status status-retired">Retired — Former VP, WPP</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Him</h3>
+      <p>Jon Steel is — by near-universal consensus — the greatest account planner in advertising history. His book "Truth, Lies & Advertising" is the bible of the discipline. He built the planning department at Goodby, Silverstein & Partners from scratch and grew the agency from $40 million to $776 million. He won 11 gold Effie Awards for effectiveness. He was the strategic mind behind "got milk?" — one of the most iconic campaigns of the 20th century. He was named one of the top five account planners in the world by peers who called him "one of the great practitioners in advertising today." His philosophy: planning exists to create the conditions for great creative work.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How He Completes the Team</h3>
+      <p>Steel is the human-truth engine. While Clow and Serpa push for creative greatness, Steel ensures every idea is rooted in a genuine consumer insight. He bridges the British planning tradition (rigor, research, evidence) with American creative ambition. His belief that planners should spend time with real people — not just data — creates the insights that make great creative inevitable. He gives Droga the strategic ammunition to sell bold work to cautious clients.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">"Got Milk?" Strategist</span>
+    <span class="credential">11 Gold Effie Awards</span>
+    <span class="credential">AAF Hall of Achievement</span>
+    <span class="credential">Adweek West Coast Executive of Year</span>
+    <span class="credential">Author: Truth, Lies & Advertising</span>
+    <span class="credential">Built GSP Planning Dept</span>
+  </div>
+</section>
+
+<!-- ==================== 04 · ECD ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">04 · Executive Creative Director — Art</div>
+  <div class="person-name">Marcello Serpa</div>
+  <div class="person-origin">Brazilian-German · São Paulo & Munich</div>
+  <span class="person-status status-alive">Active — Independent Creative Consultant</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Him</h3>
+      <p>Brazil's most honored art director in history. First non-Anglo-Saxon to receive the Clio Lifetime Achievement Award. He built AlmapBBDO into a three-time Cannes Agency of the Year nominee and the first-ever double winner of Agency of the Year in the Gunn Report. He turned Havaianas from a cheap rubber sandal into a global lifestyle brand through 17 years of brilliantly simple advertising. His dual German-Brazilian upbringing fused rational discipline with emotional warmth — creating a visual language that transcends culture and language. His mantra: "The product must always be the hero."</p>
+    </div>
+    <div class="person-fit">
+      <h3>How He Completes the Team</h3>
+      <p>Serpa is the visual master. His German training in reduction ("be simple — reduce everything to a single idea") complements Clow's big-idea thinking with visual precision. He proves that brand-building doesn't require a big language — his work crosses borders because it's visually universal. In a team of English and Portuguese speakers, his design-first approach creates work that transcends words. He also brings the Latin American market expertise that Chi+Ko &Tay needs for global reach.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">Clio Lifetime Achievement 2008</span>
+    <span class="credential">Cannes Agency of Year (AlmapBBDO)</span>
+    <span class="credential">Gunn Report Double Winner</span>
+    <span class="credential">Brazil's Most Awarded Art Director</span>
+    <span class="credential">Havaianas Global Brand Builder</span>
+    <span class="credential">German+Brazilian Dual Creative Education</span>
+  </div>
+</section>
+
+<!-- ==================== 05 · ECD Copy ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">05 · Executive Creative Director — Copy</div>
+  <div class="person-name">Susan Hoffman</div>
+  <div class="person-origin">American · Portland, Oregon</div>
+  <span class="person-status status-alive">Active — ECD, Wieden+Kennedy</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Her</h3>
+      <p>One of the original employees of Wieden+Kennedy — employee number five. She's been there since the beginning. She co-created some of the most celebrated Nike campaigns in history. She embodies the W+K creative philosophy more than any living person. She was named to Advertising Age's Creativity 50 and has shaped W+K's culture for four decades. She understands that advertising's job is to find what's human about a brand and build emotional connections. Her style ranges from funny (Old Spice) to profound (Nike). She's the living heartbeat of the greatest independent creative agency ever built.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How She Completes the Team</h3>
+      <p>Hoffman is the culture keeper. She brings the W+K DNA directly into Chi+Ko &Tay — the "work comes first" ethos, the "fail harder" mentality, the "hire wrong" philosophy. She pairs with Serpa beautifully: his visual precision meets her emotional storytelling. She's the one who finds the human truth inside a brand and turns it into words that make people feel. She also brings deep Nike/athletic brand expertise and decades of mentoring the next generation of creatives.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">W+K Employee #5</span>
+    <span class="credential">Nike "Just Do It" Era Creative</span>
+    <span class="credential">Old Spice Campaign Co-Creator</span>
+    <span class="credential">Creativity 50</span>
+    <span class="credential">40 Years at W+K</span>
+    <span class="credential">Portland Creative Culture Icon</span>
+  </div>
+</section>
+
+<!-- ==================== 06 · Head of Design ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">06 · Head of Brand Design & Identity</div>
+  <div class="person-name">Helmut Krone</div>
+  <div class="person-origin">American · New York City</div>
+  <span class="person-status status-deceased">Deceased (1925–1996) — Former AD, DDB</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Him</h3>
+      <p>Helmut Krone led the Creative Revolution that changed advertising forever. His "Think Small" ad for Volkswagen — created at DDB with copywriter Julian Koenig — was voted the number one advertisement of the 20th century by Ad Age. His work is in the Museum of Modern Art and the Smithsonian. He didn't just create ads — he invented the modern advertising format. He questioned every formal device: logotypes, headlines, body copy, photography. He created the tension between words and images that still defines how advertising works today. He gave us ads that are witty, understated, and demand the audience's intelligence.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How He Completes the Team</h3>
+      <p>Krone is the foundation. His design philosophy — strip everything to its essence, respect the audience's intelligence, let the idea do the work — is the bedrock on which Chi+Ko &Tay's visual identity is built. While Serpa brings Brazilian warmth and Clow brings California scale, Krone brings New York precision and the intellectual rigor of the original creative revolution. He sets the design standards that every brand identity Chi+Ko &Tay creates must meet. His ghost haunts every layout that's too busy and every headline that tries too hard.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">VW "Think Small" — #1 Ad of 20th Century</span>
+    <span class="credential">Work in MoMA & Smithsonian</span>
+    <span class="credential">ADC Hall of Fame</span>
+    <span class="credential">One Club Creative Hall of Fame</span>
+    <span class="credential">Led the Creative Revolution</span>
+    <span class="credential">Invented Modern Ad Layout</span>
+  </div>
+</section>
+
+<!-- ==================== 07 · Head of Cultural Intelligence ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">07 · Head of Cultural Intelligence</div>
+  <div class="person-name">Rosie Yakob</div>
+  <div class="person-origin">British · Co-Founder, Genius Steals</div>
+  <span class="person-status status-alive">Active — Nomadic Creative Strategist</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Her</h3>
+      <p>Rosie Yakob (along with partner Faris Yakob) built Genius Steals into one of the most respected independent strategy consultancies in advertising. She's a nomadic strategist who has lived and worked across six continents, giving her an unmatched understanding of how culture moves globally. She advises major brands and agencies on cultural strategy, emerging platforms, and the intersection of technology and human behavior. She's spoken at Cannes Lions, SXSW, and every major industry event. Her perspective is global, digital-native, and deeply human — exactly what Chi+Ko &Tay's cultural intelligence practice requires.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How She Completes the Team</h3>
+      <p>Yakob is the antenna. While Steel digs deep into consumer psychology and Hoffman finds the human story, Yakob scans the entire cultural landscape — across every market, platform, and subculture — to spot the emerging tensions and trends that become creative opportunities. She's the youngest strategic mind on the team, balancing the veteran wisdom of Steel and Clow with digital-native fluency. Her nomadic life means she doesn't see culture from one city — she sees it from everywhere simultaneously.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">Co-Founder Genius Steals</span>
+    <span class="credential">Cannes Lions Speaker</span>
+    <span class="credential">Global Nomadic Strategist</span>
+    <span class="credential">6-Continent Cultural Expertise</span>
+    <span class="credential">Digital-Native Strategic Mind</span>
+    <span class="credential">Author & Industry Thought Leader</span>
+  </div>
+</section>
+
+<!-- ==================== 08 · Head of Production ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">08 · Head of Production</div>
+  <div class="person-name">Elaine Hinton</div>
+  <div class="person-origin">British · London</div>
+  <span class="person-status status-alive">Active — Former Chief Production Officer, BBDO/Omnicom</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Her</h3>
+      <p>Elaine Hinton was the Chief Production Officer of BBDO Worldwide — the agency that was named Agency of the Year 15 consecutive years under David Lubars. She oversaw the production of some of the most awarded campaigns in modern advertising history. Before BBDO, she worked at BBH London and produced iconic work across film, digital, and experiential. Production is where great ideas either soar or die. Hinton ensures they soar — on budget, on time, at the highest craft level possible. She manages the global roster of directors, photographers, and production partners that turn concepts into culture.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How She Completes the Team</h3>
+      <p>Hinton is the reality engine. In a team of visionaries and dreamers, she's the one who actually makes things happen at world-class quality. She translates Clow's grand concepts and Serpa's visual ambitions into finished work that wins at Cannes. She manages budgets without compromising craft. She knows every top director, editor, and production house on earth. She's the bridge between the creative department's ambitions and the physical reality of making things.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">Chief Production Officer, BBDO Worldwide</span>
+    <span class="credential">BBH London Production Heritage</span>
+    <span class="credential">15-Year Agency of Year Production Lead</span>
+    <span class="credential">Global Director & Talent Network</span>
+    <span class="credential">Film, Digital & Experiential</span>
+    <span class="credential">Craft Excellence at Scale</span>
+  </div>
+</section>
+
+<!-- ==================== 09 · Rainmaker ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">09 · Chief Growth Officer / The Rainmaker</div>
+  <div class="person-name">Jay Chiat</div>
+  <div class="person-origin">American · New York / Los Angeles</div>
+  <span class="person-status status-deceased">Deceased (1931–2002) — Founder, Chiat\Day</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Him</h3>
+      <p>Jay Chiat built Chiat\Day from nothing into Ad Age's Agency of the Decade. He won clients not by selling advertising but by selling a vision of what advertising could be. He was the first to bring account planning to the US. He proved that great work attracts great clients — not the other way around. He was the archetypal new-business genius: part visionary, part showman, part operator. His agency won Agency of the Year three times. He pioneered the virtual office, the open workspace, and the belief that the working environment directly shapes the creative product. His personal motto — "Good enough is not enough" — became the agency's DNA.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How He Completes the Team</h3>
+      <p>Chiat is the fire. Where Droga is the measured leader and Steel is the thoughtful strategist, Chiat brings relentless, uncompromising energy to winning new business. He doesn't accept no. He creates urgency. He makes clients feel that they NEED Chi+Ko &Tay more than Chi+Ko &Tay needs them. He's also the culture enforcer — his belief that the environment shapes the work means he'll be the one designing the office, choosing the furniture, and setting the temperature of the entire operation. He and Droga together form the ultimate CEO-CGO partnership: vision plus fire.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">Founded Chiat\Day</span>
+    <span class="credential">Ad Age Agency of the Decade</span>
+    <span class="credential">Brought Account Planning to US</span>
+    <span class="credential">Pioneered Virtual Office</span>
+    <span class="credential">Apple "1984" (Client-Side Champion)</span>
+    <span class="credential">ADC Hall of Fame</span>
+  </div>
+</section>
+
+<!-- ==================== 10 · Client Leader ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">10 · Managing Director / Head of Client Partnership</div>
+  <div class="person-name">Mary Wells Lawrence</div>
+  <div class="person-origin">American · Youngstown, Ohio / New York City</div>
+  <span class="person-status status-deceased">Deceased (1928–2024) — Founder, Wells Rich Greene</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Her</h3>
+      <p>Mary Wells Lawrence was the first woman to found, own, and run a major advertising agency, and the first female CEO of a company traded on the New York Stock Exchange. She built Wells Rich Greene into one of the most creative and commercially successful agencies of the 1960s and 70s. She created "Plop, plop, fizz, fizz" for Alka-Seltzer, "Flick your Bic," and "I Love New York." She won the Cannes Lions Lifetime Achievement Award in 2020. But what made her legendary was her client relationships: she could charm, persuade, and hold boardroom power with CEOs while protecting creative work. She understood that the best client relationships are personal, deep, and built on mutual respect.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How She Completes the Team</h3>
+      <p>Wells Lawrence is the diplomat. In a team loaded with creative firebands (Clow, Chiat, Hoffman), she's the one who makes clients feel heard, respected, and excited about taking risks. She builds the long-term relationships that sustain the agency. She's the counterbalance to Chiat's intensity — where he charges in, she builds bridges. Her business acumen means she also contributes to agency operations and financial strategy. She and Droga together ensure that Chi+Ko &Tay is creatively ambitious AND commercially sustainable.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">First Female CEO on NYSE</span>
+    <span class="credential">Founded Wells Rich Greene</span>
+    <span class="credential">"I ♥ NY" Era Agency Leader</span>
+    <span class="credential">Cannes Lion of St. Mark 2020</span>
+    <span class="credential">Alka-Seltzer, Bic, Braniff Airlines</span>
+    <span class="credential">Legendary Client Relationships</span>
+  </div>
+</section>
+
+<!-- ==================== 11 · Bill Bernbach ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">11 · Chairman Emeritus / Creative Godfather</div>
+  <div class="person-name">Bill Bernbach</div>
+  <div class="person-origin">American · New York City</div>
+  <span class="person-status status-deceased">Deceased (1911–1982) — Co-Founder, DDB</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Him</h3>
+      <p>Bill Bernbach started the Creative Revolution. He invented the modern copywriter-art director team. He hired the most talented and overlooked people of his era — Phyllis Robinson, Helmut Krone, George Lois. He created Volkswagen's "Think Small" — the greatest campaign ever made. He proved that advertising could be intelligent, witty, and respectful of the audience. He fundamentally changed the purpose of advertising from shouting at people to having a conversation with them. His agency, DDB, won Network of the Year at Cannes 2025 with 112 Lions — 43 years after his death. That's legacy.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How He Completes the Team</h3>
+      <p>Bernbach is the philosophical foundation. His principle that "The trick isn't knowing what to say. What makes all the difference is the way you say it" is the DNA of every Chi+Ko &Tay brief. He reunites with Krone — his original art director — and together they set the creative standard that the younger team members aspire to. He is the one who reminds everyone that great advertising respects the audience's intelligence. In a room with Droga, Clow, and Chiat, Bernbach is the quiet authority who makes everyone better by simply raising the bar of what's possible.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">Started the Creative Revolution</span>
+    <span class="credential">Co-Founded DDB</span>
+    <span class="credential">VW "Think Small" (Oversaw)</span>
+    <span class="credential">Invented Art Director + Copywriter Team</span>
+    <span class="credential">Ad Age #1 Ad Person of 20th Century</span>
+    <span class="credential">DDB Still Winning 43 Years After His Death</span>
+  </div>
+</section>
+
+<!-- ==================== 12 · David Ogilvy ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">12 · Head of Brand Strategy & Effectiveness</div>
+  <div class="person-name">David Ogilvy</div>
+  <div class="person-origin">British · Born in West Horsley, Surrey</div>
+  <span class="person-status status-deceased">Deceased (1911–1999) — Founder, Ogilvy & Mather</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Him</h3>
+      <p>David Ogilvy — the "Father of Advertising" — founded Ogilvy & Mather and built it into one of the largest and most respected agencies in the world. His genius was the marriage of research and creativity. He believed advertising had to sell — and he proved it could sell brilliantly. He created the Hathaway shirt man, "The man in the Hathaway shirt," the Rolls-Royce headline ("At 60 miles an hour the loudest noise comes from the electric clock"), and Dove's iconic brand positioning. His books — "Confessions of an Advertising Man" and "Ogilvy on Advertising" — remain the definitive texts on brand-building. His agency won Creative Company of the Year at Cannes 2025.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How He Completes the Team</h3>
+      <p>Ogilvy is the effectiveness backbone. While Bernbach is the creative idealist and Clow is the conceptual visionary, Ogilvy ensures every campaign proves its worth in results. He bridges Steel's consumer insights with hard business outcomes. He writes the effectiveness case studies that win Effies. He reminds the team that creative work that doesn't drive results is just art — and Chi+Ko &Tay is in the business of building brands that sell. His British formality also beautifully counterbalances the American and Brazilian informality on the team.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">Founded Ogilvy & Mather</span>
+    <span class="credential">"Father of Advertising"</span>
+    <span class="credential">Rolls-Royce, Dove, Hathaway</span>
+    <span class="credential">Author: Confessions & Ogilvy on Advertising</span>
+    <span class="credential">Ogilvy still winning Cannes in 2025</span>
+    <span class="credential">Research-Driven Brand Builder</span>
+  </div>
+</section>
+
+<!-- ==================== 13 · Dan Wieden ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">13 · Chief Culture Officer</div>
+  <div class="person-name">Dan Wieden</div>
+  <div class="person-origin">American · Portland, Oregon</div>
+  <span class="person-status status-deceased">Deceased (1945–2022) — Co-Founder, Wieden+Kennedy</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Him</h3>
+      <p>Dan Wieden wrote "Just Do It." Three words that became a global cultural movement, transformed Nike into a $50 billion brand, and redefined what advertising could mean to a company. But his real genius was building Wieden+Kennedy — the world's largest independent advertising agency — on a culture so powerful that it defines the company 40+ years later. He codified independence in a trust so the agency could never be sold. He created the principles "Fail Harder," "Walk In Stupid Every Morning," and "Hire Wrong." He built The Kennedys residency program. He made Portland — not New York — the creative capital of American advertising. He didn't just build an agency. He built a creative religion.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How He Completes the Team</h3>
+      <p>Wieden is the soul. While Droga runs the business and Chiat wins the clients, Wieden builds the culture that makes everything else possible. He designs the Chi+Ko &Tay Fellowship program, the creative sabbaticals, the hiring philosophy, the physical space. He's the one who reminds everyone: "Create a culture so weird and wild and sticky that it would hurt your very soul to leave." He and Hoffman — his longtime colleague — bring the W+K DNA directly into Chi+Ko &Tay. He also keeps the agency independent. Forever.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">Wrote "Just Do It"</span>
+    <span class="credential">Co-Founded Wieden+Kennedy</span>
+    <span class="credential">World's Largest Independent Agency</span>
+    <span class="credential">Codified Independence in Trust</span>
+    <span class="credential">Created The Kennedys Program</span>
+    <span class="credential">Clio Lifetime Achievement</span>
+  </div>
+</section>
+
+<!-- ==================== 14 · Eugene Cheong ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">14 · Head of Asia-Pacific & Craft Excellence</div>
+  <div class="person-name">Eugene Cheong</div>
+  <div class="person-origin">Singaporean · Southeast Asia</div>
+  <span class="person-status status-retired">Retired — Former CCO, Ogilvy Asia Pacific</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Him</h3>
+      <p>Eugene Cheong transformed Asian advertising from a regional afterthought into a global creative force. As Chief Creative Officer of Ogilvy Asia Pacific, he proved that work from Asia could win on the world stage — not by copying the West, but by setting entirely new standards. His campaigns combined sharp wit with immaculate craft. Over 250 Cannes Lions. He changed the perception of an entire continent's creative output. In a single-office global agency, you need someone who understands Asian markets, consumers, and aesthetics at a deep level — and can make that work resonate globally.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How He Completes the Team</h3>
+      <p>Cheong is the global equalizer. In a team heavy with American and European perspectives, he ensures Chi+Ko &Tay can create work that resonates in Tokyo, Mumbai, Shanghai, and Jakarta — not just New York and London. His craft obsession complements Krone's design rigor and Serpa's visual mastery. His 250+ Cannes Lions from Asia prove that great work isn't bound by geography or language. He mentors the team on cultural nuance and gives Chi+Ko &Tay credibility to serve global brands across the world's fastest-growing markets.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">250+ Cannes Lions</span>
+    <span class="credential">CCO Ogilvy Asia Pacific</span>
+    <span class="credential">Transformed Asian Advertising Globally</span>
+    <span class="credential">Pan-Asian Creative Authority</span>
+    <span class="credential">Immaculate Craft Standards</span>
+    <span class="credential">Multi-Cultural Campaign Master</span>
+  </div>
+</section>
+
+<!-- ==================== 15 · Behavioral Science ==================== -->
+<section class="person-section">
+  <div class="person-role-tag">15 · Head of Behavioral Science & Persuasion</div>
+  <div class="person-name">Rory Sutherland</div>
+  <div class="person-origin">British · Vice Chairman, Ogilvy UK</div>
+  <span class="person-status status-alive">Active — Writer, Speaker, TED Talker</span>
+
+  <div class="person-body">
+    <div class="person-why">
+      <h3>Why Him</h3>
+      <p>Rory Sutherland is the advertising industry's resident genius on behavioral economics, psychology, and irrational human decision-making. As Vice Chairman of Ogilvy UK, he founded the behavioral science practice that has influenced how the entire industry thinks about persuasion. His TED talks have been viewed millions of times. His book "Alchemy" is a masterclass on why people do what they do — and how brands can use that understanding. He argues that the biggest advertising breakthroughs come not from data or technology, but from understanding the wonderful irrationality of human behavior.</p>
+    </div>
+    <div class="person-fit">
+      <h3>How He Completes the Team</h3>
+      <p>Sutherland is the secret weapon. While Steel provides the consumer insight and Ogilvy provides the brand framework, Sutherland adds the layer of behavioral science that makes campaigns not just beautiful but behaviorally effective. He's the one who spots the counterintuitive insight — the one that makes creative teams gasp and clients nervous, but that works because it's true to how humans actually behave. He also brings wit, erudition, and a gift for persuasion that makes him invaluable in client presentations. He can sell the logic behind illogical-seeming ideas better than anyone alive.</p>
+    </div>
+  </div>
+  <div class="person-credentials">
+    <span class="credential">Vice Chairman, Ogilvy UK</span>
+    <span class="credential">Founded Ogilvy Behavioral Science</span>
+    <span class="credential">Author: Alchemy</span>
+    <span class="credential">TED Talks (Millions of Views)</span>
+    <span class="credential">Behavioral Economics Pioneer in Advertising</span>
+    <span class="credential">Cannes Lions Jury President</span>
+  </div>
+</section>
+
+<!-- ==================== CHEMISTRY ==================== -->
+<section class="chemistry">
+  <h2>Why this team <em>works.</em></h2>
+  <p class="chemistry-intro">Fifteen people, nine countries, five languages, one shared obsession: making the best work in the world. Here's why the chemistry is explosive.</p>
+
+  <div class="chem-grid">
+    <div class="chem-card">
+      <h4>The Tension Between Rigor & Madness</h4>
+      <p>Ogilvy and Bernbach famously disagreed on everything — research vs. instinct, selling vs. art. Putting them in the same room creates the productive tension that produces work that is both creatively brave AND commercially effective. Steel and Sutherland add layers of evidence. Clow and Hoffman add fearless creative instinct. The work that survives both fires is the work that wins.</p>
+    </div>
+    <div class="chem-card">
+      <h4>Three Art Director Lineages</h4>
+      <p>Krone (New York precision), Serpa (Brazilian-German reduction), and Cheong (Asian immaculate craft) — three entirely different visual traditions that together give Chi+Ko &Tay the ability to create work that resonates in any culture, any language, any market. No other team on earth has this visual range.</p>
+    </div>
+    <div class="chem-card">
+      <h4>The CEO-CCO Powercouple</h4>
+      <p>Droga (CEO) + Clow (CCO) is the dream partnership. Droga understands creative and business equally. Clow understands creative at the highest level but leaves business to others. They won't step on each other's toes. They'll amplify each other's strengths.</p>
+    </div>
+    <div class="chem-card">
+      <h4>Culture × Strategy × Behavioral Science</h4>
+      <p>Yakob reads the culture. Steel reads the consumer. Sutherland reads the irrational mind. Together, they produce strategic briefs that are culturally relevant, humanly true, and behaviorally effective — the holy trinity that makes creative work not just beautiful but unstoppable.</p>
+    </div>
+    <div class="chem-card">
+      <h4>The Fire + The Diplomat</h4>
+      <p>Jay Chiat (relentless, uncompromising, intense) and Mary Wells Lawrence (charming, strategic, relationship-first) form the ultimate client partnership. Chiat wins the pitch. Wells Lawrence keeps the client for 20 years. They balance each other perfectly.</p>
+    </div>
+    <div class="chem-card">
+      <h4>Wieden's Culture Protects Everything</h4>
+      <p>Dan Wieden doesn't create ads. He creates the conditions for everyone else to create the best ads of their lives. His culture — independence, risk-taking, creative freedom, diversity — is the invisible infrastructure that makes every other person on this list perform at their peak. He's the reason they'll all stay.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-logo">Chi+Ko &Tay</div>
+  <div class="footer-line">Fifteen people who changed advertising — together at last.</div>
+  <div class="footer-note">Confidential Founding Roster — April 2026 — "Find a way to hire them."</div>
+</footer>
+
+</body>
+</html>
